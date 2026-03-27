@@ -146,6 +146,7 @@ class AndroidNotificationDetails {
     this.colorized = false,
     this.number,
     this.audioAttributesUsage = AudioAttributesUsage.notification,
+    this.publicNotification,
   });
 
   /// The icon that should be used when displaying the notification.
@@ -408,4 +409,26 @@ class AndroidNotificationDetails {
   /// such as alarm or ringtone set in [`AudioAttributes.Builder`](https://developer.android.com/reference/android/media/AudioAttributes.Builder#setUsage(int))
   /// https://developer.android.com/reference/android/media/AudioAttributes
   final AudioAttributesUsage audioAttributesUsage;
+
+  /// An optional public version of this notification shown on the lock screen
+  /// when [visibility] is set to [NotificationVisibility.private].
+  ///
+  /// Use this to provide a redacted version of the notification content.
+  final AndroidPublicNotification? publicNotification;
+}
+
+/// Defines the content shown in place of a private notification on the lock
+/// screen when [AndroidNotificationDetails.visibility] is
+/// [NotificationVisibility.private].
+class AndroidPublicNotification {
+  const AndroidPublicNotification({
+    required this.title,
+    this.body,
+  });
+
+  /// The title shown on the lock screen.
+  final String title;
+
+  /// The body shown on the lock screen.
+  final String? body;
 }

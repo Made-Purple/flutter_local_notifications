@@ -419,6 +419,7 @@ public class FlutterLocalNotificationsPlugin
     }
 
     setVisibility(notificationDetails, builder);
+    setPublicVersion(context, notificationDetails, builder);
     applyGrouping(notificationDetails, builder);
     setSound(context, notificationDetails, builder);
     setVibrationPattern(notificationDetails, builder);
@@ -882,6 +883,22 @@ public class FlutterLocalNotificationsPlugin
         break;
     }
     return icon;
+  }
+
+  private static void setPublicVersion(
+      Context context,
+      NotificationDetails notificationDetails,
+      NotificationCompat.Builder builder) {
+    if (StringUtils.isNullOrEmpty(notificationDetails.publicNotificationTitle)) {
+      return;
+    }
+    NotificationCompat.Builder publicBuilder =
+        new NotificationCompat.Builder(context, notificationDetails.channelId)
+            .setContentTitle(notificationDetails.publicNotificationTitle)
+            .setContentText(notificationDetails.publicNotificationBody)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+    setSmallIcon(context, notificationDetails, publicBuilder);
+    builder.setPublicVersion(publicBuilder.build());
   }
 
   /**
