@@ -1,7 +1,4 @@
-import 'package:flutter_local_notifications_linux/flutter_local_notifications_linux.dart';
-
-import 'platform_specifics/android/initialization_settings.dart';
-import 'platform_specifics/darwin/initialization_settings.dart';
+import '../flutter_local_notifications.dart';
 
 /// Settings for initializing the plugin for each platform.
 class InitializationSettings {
@@ -11,6 +8,8 @@ class InitializationSettings {
     this.iOS,
     this.macOS,
     this.linux,
+    this.windows,
+    this.web,
   });
 
   /// Settings for Android.
@@ -23,6 +22,10 @@ class InitializationSettings {
   ///
   /// It is nullable, because we don't want to force users to specify settings
   /// for platforms that they don't target.
+  ///
+  /// You can pass either DarwinInitializationSettings or
+  /// IOSInitializationSettings. Use IOSInitializationSettings to access
+  /// iOS-specific features like CarPlay.
   final DarwinInitializationSettings? iOS;
 
   /// Settings for macOS.
@@ -36,4 +39,13 @@ class InitializationSettings {
   /// It is nullable, because we don't want to force users to specify settings
   /// for platforms that they don't target.
   final LinuxInitializationSettings? linux;
+
+  /// Settings for Windows.
+  final WindowsInitializationSettings? windows;
+
+  /// Settings for web.
+  ///
+  /// It is nullable, because we don't want to force users to specify settings
+  /// for platforms that they don't target.
+  final WebInitializationSettings? web;
 }

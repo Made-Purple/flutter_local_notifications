@@ -10,14 +10,18 @@ enum RepeatInterval {
   daily,
 
   /// Weekly interval.
-  weekly
+  weekly,
 }
 
 /// Details of a pending notification that has not been delivered.
 class PendingNotificationRequest {
   /// Constructs an instance of [PendingNotificationRequest].
   const PendingNotificationRequest(
-      this.id, this.title, this.body, this.payload);
+    this.id,
+    this.title,
+    this.body,
+    this.payload,
+  );
 
   /// The notification's id.
   final int id;
@@ -30,6 +34,21 @@ class PendingNotificationRequest {
 
   /// The notification's payload.
   final String? payload;
+}
+
+/// The components of a date and time representations.
+enum DateTimeComponents {
+  /// The time.
+  time,
+
+  /// The day of the week and time.
+  dayOfWeekAndTime,
+
+  /// The day of the month and time.
+  dayOfMonthAndTime,
+
+  /// The date and time.
+  dateAndTime,
 }
 
 /// Details of an active notification.
@@ -59,7 +78,8 @@ class ActiveNotification {
 
   /// The notification's group.
   ///
-  /// Returned only on Android.
+  /// On Android, this is the notification's `groupKey`.
+  /// On iOS and macOS, this is the notification's `threadIdentifier`.
   final String? groupKey;
 
   /// The notification's title.
@@ -93,6 +113,7 @@ class NotificationResponse {
     this.actionId,
     this.input,
     this.payload,
+    this.data = const <String, dynamic>{},
   });
 
   /// The notification's id.
@@ -106,10 +127,18 @@ class NotificationResponse {
 
   /// The value of the input field if the notification action had an input
   /// field.
+  ///
+  /// On Windows, this is always null. Instead, [data] holds the values of
+  /// each input with the input's ID as the key.
   final String? input;
 
   /// The notification's payload.
   final String? payload;
+
+  /// Any other data returned by the platform.
+  ///
+  /// Returned only on Windows.
+  final Map<String, dynamic> data;
 
   /// The notification response type.
   final NotificationResponseType notificationResponseType;
