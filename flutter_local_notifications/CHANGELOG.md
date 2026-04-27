@@ -1,3 +1,7 @@
+## [22.0.0-dev.1+madepurple.1]
+
+* [Android] added support for specifying a public-facing notification title and body for local notifications in the company fork.
+
 ## [22.0.0-dev.1]
 
 * [Web] added web platform support. Thanks to the initial PR from [Levi Lesches](https://github.com/Levi-Lesches) and completion by [Gaurav](https://github.com/Gaurav-CareMonitor)
